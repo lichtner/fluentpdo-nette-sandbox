@@ -33,6 +33,15 @@ $container->fpdo->debug = function($FluentQuery) {
 	FluentPDOPanel::getInstance()->logQuery($FluentQuery);
 };
 
+# connect NotORM panel
+$panel = NotORMPanel::getInstance();
+$panel->setPlatform($container->pdo->getAttribute(PDO::ATTR_DRIVER_NAME));
+\Nette\Diagnostics\Debugger::addPanel($panel);
+
+$container->notorm->debug = function($query, $parameters) {
+	NotORMPanel::getInstance()->logQuery($query, $parameters);
+};
+
 // Setup router
 $container->router[] = new Route('index.php', 'Homepage:default', Route::ONE_WAY);
 $container->router[] = new Route('<presenter>/<action>[/<id>]', 'Homepage:default');

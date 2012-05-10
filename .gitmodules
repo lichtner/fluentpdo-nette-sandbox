@@ -4,3 +4,6 @@
 [submodule "libs/fluentpdo"]
 	path = libs/fluentpdo
 	url = https://github.com/lichtner/fluentpdo
+[submodule "libs/notorm"]
+	path = libs/notorm
+	url = https://github.com/vrana/notorm.git

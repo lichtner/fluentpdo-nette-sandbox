@@ -22,7 +22,6 @@ common:
 		debugger:
 			email: 'marek@licht.sk'
 			bar:
-#				- NotORMPanel
 				- FluentPDOPanel
 
 	services:
@@ -38,6 +37,9 @@ common:
 				- query('SET NAMES utf8')
 
 		fpdo: FluentPDO
+		notorm: NotORM
+
+		articles: Articles
 
 	factories:
 
