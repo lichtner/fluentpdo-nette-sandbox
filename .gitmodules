@@ -1,0 +1,6 @@
+[submodule "libs/nette"]
+	path = libs/nette
+	url = https://github.com/nette/nette.git
+[submodule "libs/fluentpdo"]
+	path = libs/fluentpdo
+	url = https://github.com/lichtner/fluentpdo

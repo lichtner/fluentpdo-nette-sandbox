@@ -7,35 +7,37 @@
 common:
 	parameters:
 		database:
-			driver: mysql
-			host: localhost
-			dbname: test
-			user:
-			password:
-
+			dsn: 'mysql:host=localhost;dbname=fblog'
+			username: root
+			password: 
 
 	php:
-		date.timezone: Europe/Prague
+		date.timezone: Europe/Bratislava
 		# session.save_path: "%tempDir%/sessions"
 		# zlib.output_compression: yes
-
 
 	nette:
 		session:
 			expiration: '+ 14 days'
-
-		database:
-			default:
-				dsn: '%database.driver%:host=%database.host%;dbname=%database.dbname%'
-				user: %database.user%
-				password: %database.password%
-
+		debugger:
+			email: 'marek@licht.sk'
+			bar:
+#				- NotORMPanel
+				- FluentPDOPanel
 
 	services:
-		database: @Nette\Database\Connection
+		#database: @Nette\Database\Connection
+		#authenticator: Authenticator( @database::table(users) )
 
-		authenticator: Authenticator( @database::table(users) )
+		pdo:
+			class: PDO(%database.dsn%,%database.username%,%database.password%)
+			setup:
+				# setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION) 
+				# nedá sa použiť lebo konštanty sa nedajú vložiť do config.neon
+				- setAttribute(3, 2)
+				- query('SET NAMES utf8')
 
+		fpdo: FluentPDO
 
 	factories:
 
