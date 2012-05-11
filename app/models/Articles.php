@@ -18,8 +18,7 @@ class Articles {
 		$articles = $this->fpdo
 				->from('article')
 				->where('published_at')
-				->orderBy('published_at DESC')
-				->fetchAll();
+				->orderBy('published_at DESC');
 		return $articles;
 	}
 }

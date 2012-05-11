@@ -14,7 +14,7 @@
 	
 	<p>List of articles:</p>
 	<ul>
-		<li n:foreach="$notorm->article('user_id = ?', 1) as $article">
+		<li n:foreach="$notorm->article('user_id', 1) as $article">
 			{$article['title']}
 		</li>
 	</ul>

@@ -15,8 +15,7 @@ class HomepagePresenter extends BasePresenter
 		$articles = $this->fpdo
 				->from('article')
 				->where('published_at')
-				->orderBy('published_at DESC')
-				->fetchAll();
+				->orderBy('published_at DESC');
 		$this->template->articles = $articles;
 	}
 
@@ -26,8 +25,7 @@ class HomepagePresenter extends BasePresenter
 		
 		$articles = $this->notorm
 				->article('published_at')
-				->order('published_at DESC')
-				->fetchPairs('id');
+				->order('published_at DESC');
 		$this->template->articles = $articles;
 	}
 	
