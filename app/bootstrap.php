@@ -7,7 +7,7 @@ use Nette\Application\Routers\Route;
 
 
 // Load Nette Framework
-require LIBS_DIR . '/Nette/loader.php';
+require LIBS_DIR . '/nette/Nette/loader.php';
 
 
 // Configure application
@@ -27,6 +27,20 @@ $configurator->createRobotLoader()
 // Create Dependency Injection container from config.neon file
 $configurator->addConfig(__DIR__ . '/config/config.neon');
 $container = $configurator->createContainer();
+
+// connect FluentPDO panel
+$container->fpdo->debug = function($FluentQuery) {
+	FluentPDOPanel::getInstance()->logQuery($FluentQuery);
+};
+
+# connect NotORM panel
+$panel = NotORMPanel::getInstance();
+$panel->setPlatform($container->pdo->getAttribute(PDO::ATTR_DRIVER_NAME));
+\Nette\Diagnostics\Debugger::addPanel($panel);
+
+$container->notorm->debug = function($query, $parameters) {
+	NotORMPanel::getInstance()->logQuery($query, $parameters);
+};
 
 // Setup router
 $container->router[] = new Route('index.php', 'Homepage:default', Route::ONE_WAY);
